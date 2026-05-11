@@ -1,0 +1,121 @@
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #eef3f4;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: #eef3f4;
+}
+
+.app-header {
+  height: auto;
+  min-height: 76px;
+  padding: 14px 28px;
+  background: #ffffff;
+  border-bottom: 1px solid #dbe4e7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.app-title {
+  margin: 0 !important;
+  letter-spacing: 0;
+}
+
+.app-subtitle {
+  color: #66777d;
+}
+
+.app-content {
+  padding: 24px 28px;
+}
+
+.scenario-workbench,
+.policy-section {
+  background: #ffffff;
+  border: 1px solid #dbe4e7;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.policy-section {
+  margin-top: 18px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.section-heading.compact {
+  align-items: center;
+}
+
+.section-heading h4 {
+  margin: 0 0 4px !important;
+  letter-spacing: 0;
+}
+
+.scenario-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.scenario-item {
+  min-height: 104px;
+  border: 1px solid #e1e8ea;
+  border-radius: 6px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.scenario-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.case-result-table {
+  margin-top: 16px;
+}
+
+.code-textarea {
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+}
+
+.drawer-actions {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+@media (max-width: 720px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px 18px;
+  }
+
+  .app-content {
+    padding: 16px;
+  }
+
+  .section-heading {
+    flex-direction: column;
+  }
+}

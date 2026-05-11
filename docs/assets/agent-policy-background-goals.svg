@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">AI Agent 策略访问控制中心背景与目标总览</title>
+  <desc id="desc">展示 AI Agent 平台面临的访问风险、策略中心的 Cedar 授权判断能力、运行时拦截点，以及第一个版本的建设目标。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7fafc"/>
+      <stop offset="0.52" stop-color="#eef7f4"/>
+      <stop offset="1" stop-color="#f5f1e8"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#1f2937" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f6f73"/>
+    </marker>
+    <style>
+      .title { font: 700 44px "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #162328; }
+      .subtitle { font: 400 22px "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #526269; }
+      .section { font: 700 25px "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #17252a; }
+      .label { font: 700 20px "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #17252a; }
+      .small { font: 400 17px "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #425158; }
+      .tiny { font: 400 15px "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #516168; }
+      .card { fill: #ffffff; stroke: #d8e4e2; stroke-width: 1.5; filter: url(#shadow); }
+      .risk { fill: #fff7ed; stroke: #f0c18d; }
+      .runtime { fill: #eff8ff; stroke: #a8d3ef; }
+      .goal { fill: #f4f7ed; stroke: #c5d89b; }
+      .cedar { fill: #eef7f4; stroke: #8ab9b5; }
+      .line { stroke: #2f6f73; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .softLine { stroke: #7c9694; stroke-width: 2; fill: none; stroke-dasharray: 7 7; marker-end: url(#arrow); }
+      .badge { fill: #1f6f6f; }
+      .badgeText { font: 700 16px "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1420" cy="112" r="78" fill="#dceee8" opacity="0.8"/>
+  <circle cx="120" cy="772" r="100" fill="#eadfca" opacity="0.48"/>
+
+  <text x="80" y="82" class="title">AI Agent 策略访问控制中心</text>
+  <text x="80" y="122" class="subtitle">用 Cedar 做统一授权判断，用网关与运行时完成真实拦截</text>
+
+  <rect x="75" y="175" width="365" height="425" rx="14" class="card risk"/>
+  <text x="108" y="222" class="section">背景：Agent 能力扩大后</text>
+  <text x="108" y="256" class="subtitle">访问边界变得更复杂</text>
+
+  <g transform="translate(108 298)">
+    <rect x="0" y="0" width="300" height="58" rx="10" fill="#fffdf8" stroke="#f1d0aa"/>
+    <text x="22" y="36" class="label">用户访问 Agent</text>
+    <text x="185" y="36" class="small">谁能用？</text>
+  </g>
+  <g transform="translate(108 376)">
+    <rect x="0" y="0" width="300" height="58" rx="10" fill="#fffdf8" stroke="#f1d0aa"/>
+    <text x="22" y="36" class="label">Agent 调 MCP 工具</text>
+    <text x="207" y="36" class="small">能否调用？</text>
+  </g>
+  <g transform="translate(108 454)">
+    <rect x="0" y="0" width="300" height="58" rx="10" fill="#fffdf8" stroke="#f1d0aa"/>
+    <text x="22" y="36" class="label">Agent 调子 Agent</text>
+    <text x="203" y="36" class="small">能否委托？</text>
+  </g>
+  <text x="108" y="550" class="small">风险：越权调用、跨租户访问、敏感工具滥用、</text>
+  <text x="108" y="576" class="small">策略分散导致难审计。</text>
+
+  <rect x="560" y="170" width="475" height="445" rx="18" class="card cedar"/>
+  <text x="608" y="218" class="section">策略中心：统一判断</text>
+  <text x="608" y="254" class="subtitle">Cedar Policy + 实体数据 + 上下文</text>
+
+  <g transform="translate(610 292)">
+    <rect x="0" y="0" width="150" height="76" rx="12" fill="#ffffff" stroke="#b9d5d1"/>
+    <text x="31" y="32" class="label">Principal</text>
+    <text x="27" y="58" class="tiny">用户 / Agent</text>
+    <rect x="170" y="0" width="150" height="76" rx="12" fill="#ffffff" stroke="#b9d5d1"/>
+    <text x="214" y="32" class="label">Action</text>
+    <text x="194" y="58" class="tiny">访问 / 调用 / 委托</text>
+    <rect x="340" y="0" width="150" height="76" rx="12" fill="#ffffff" stroke="#b9d5d1"/>
+    <text x="376" y="32" class="label">Resource</text>
+    <text x="365" y="58" class="tiny">Agent / 工具</text>
+  </g>
+
+  <g transform="translate(610 390)">
+    <rect x="0" y="0" width="490" height="72" rx="12" fill="#ffffff" stroke="#b9d5d1"/>
+    <text x="24" y="30" class="label">Context</text>
+    <text x="124" y="30" class="small">租户、会话、代表用户、风险等级、数据敏感度</text>
+    <text x="24" y="56" class="tiny">让同一个动作在不同用户、租户、风险下得到不同判断。</text>
+  </g>
+
+  <g transform="translate(610 486)">
+    <rect x="0" y="0" width="146" height="70" rx="12" fill="#e9f4ef" stroke="#9fc9bd"/>
+    <text x="26" y="31" class="label">默认拒绝</text>
+    <text x="26" y="55" class="tiny">无策略不放行</text>
+    <rect x="172" y="0" width="146" height="70" rx="12" fill="#e9f4ef" stroke="#9fc9bd"/>
+    <text x="25" y="31" class="label">拒绝优先</text>
+    <text x="25" y="55" class="tiny">forbid 覆盖允许</text>
+    <rect x="344" y="0" width="146" height="70" rx="12" fill="#e9f4ef" stroke="#9fc9bd"/>
+    <text x="28" y="31" class="label">双重授权</text>
+    <text x="19" y="55" class="tiny">管理员 + 用户委托</text>
+  </g>
+
+  <rect x="1115" y="175" width="410" height="425" rx="14" class="card runtime"/>
+  <text x="1152" y="222" class="section">运行时：执行拦截</text>
+  <text x="1152" y="256" class="subtitle">策略中心不直接拦截</text>
+
+  <g transform="translate(1152 300)">
+    <rect x="0" y="0" width="326" height="56" rx="10" fill="#ffffff" stroke="#b7daf0"/>
+    <text x="24" y="35" class="label">用户入口网关</text>
+    <text x="180" y="35" class="small">拦截 invokeAgent</text>
+  </g>
+  <g transform="translate(1152 378)">
+    <rect x="0" y="0" width="326" height="56" rx="10" fill="#ffffff" stroke="#b7daf0"/>
+    <text x="24" y="35" class="label">Agent Runtime</text>
+    <text x="180" y="35" class="small">拦截 callTool</text>
+  </g>
+  <g transform="translate(1152 456)">
+    <rect x="0" y="0" width="326" height="56" rx="10" fill="#ffffff" stroke="#b7daf0"/>
+    <text x="24" y="35" class="label">Agent 编排层</text>
+    <text x="180" y="35" class="small">拦截 delegate</text>
+  </g>
+  <text x="1152" y="550" class="small">每次关键调用前请求策略中心，</text>
+  <text x="1152" y="576" class="small">根据 Allow / Deny 决定是否继续。</text>
+
+  <path d="M 440 383 C 482 383 515 383 552 383" class="line"/>
+  <path d="M 1035 383 C 1070 383 1086 383 1114 383" class="line"/>
+  <path d="M 1315 600 C 1315 665 1010 675 850 630" class="softLine"/>
+  <text x="1078" y="660" class="tiny">审计、命中策略、拒绝原因回流到策略中心</text>
+
+  <rect x="75" y="665" width="1450" height="150" rx="18" class="card goal"/>
+  <text x="108" y="713" class="section">v1 建设目标</text>
+
+  <g transform="translate(108 742)">
+    <rect x="0" y="0" width="210" height="46" rx="23" class="badge"/>
+    <text x="32" y="30" class="badgeText">统一策略管理</text>
+    <rect x="238" y="0" width="230" height="46" rx="23" class="badge"/>
+    <text x="264" y="30" class="badgeText">Cedar 授权判断</text>
+    <rect x="496" y="0" width="250" height="46" rx="23" class="badge"/>
+    <text x="522" y="30" class="badgeText">管理员授权策略</text>
+    <rect x="774" y="0" width="250" height="46" rx="23" class="badge"/>
+    <text x="800" y="30" class="badgeText">用户委托授权</text>
+    <rect x="1052" y="0" width="220" height="46" rx="23" class="badge"/>
+    <text x="1084" y="30" class="badgeText">低风险公共访问</text>
+  </g>
+  <text x="108" y="800" class="small">让 Agent 平台在保持易用性的同时，把用户、Agent、MCP 工具和子 Agent 的访问边界收敛到统一、可审计、可演进的策略体系。</text>
+</svg>
