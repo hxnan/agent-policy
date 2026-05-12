@@ -9,6 +9,10 @@ Agent Policy Center 是一个面向 AI Agent 的策略访问控制原型项目�
 
 当前实现采用 `Java Policy Center + Rust Cedar PDP Sidecar + React 管理界面` 架构。Java 后端负责策略管理、评估编排和审计；Rust PDP 使用 Cedar 官方 Rust crate 执行真实授权判断；前端提供策略管理、预置关键场景和用例验证能力。
 
+## 技术架构总览
+
+![Agent Policy Center 技术架构总览](docs/assets/agent-policy-technical-architecture.png)
+
 ## 项目结构
 
 ```text
@@ -170,3 +174,5 @@ PDP API：
 
 # 演示截图
 ![演示截图](./docs/assets/chrome-capture-2026-05-11.png)
+
+![演示截图](./docs/assets/playground.png)

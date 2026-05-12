@@ -40,7 +40,9 @@ body {
 }
 
 .scenario-workbench,
-.policy-section {
+.policy-section,
+.playground-page,
+.playground-panel {
   background: #ffffff;
   border: 1px solid #dbe4e7;
   border-radius: 6px;
@@ -95,6 +97,43 @@ body {
   margin-top: 16px;
 }
 
+.playground-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.8fr);
+  gap: 18px;
+}
+
+.playground-panel {
+  min-width: 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.filter-select {
+  min-width: 180px;
+}
+
+.evaluation-result {
+  margin-top: 20px;
+  border-top: 1px solid #e1e8ea;
+  padding-top: 16px;
+}
+
+.json-preview {
+  max-height: 360px;
+  overflow: auto;
+  border: 1px solid #dbe4e7;
+  border-radius: 6px;
+  background: #f7fafb;
+  padding: 12px;
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.code-input,
 .code-textarea {
   font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
 }
@@ -117,5 +156,9 @@ body {
 
   .section-heading {
     flex-direction: column;
+  }
+
+  .playground-grid {
+    grid-template-columns: 1fr;
   }
 }
