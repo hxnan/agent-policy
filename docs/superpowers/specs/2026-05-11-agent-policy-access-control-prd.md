@@ -190,7 +190,94 @@ when {
 
 这种方式可以避免“访问主体到底是用户还是 Agent”的歧义，也更适合表达用户委托授权、Agent 管理员授权和运行时会话审计。
 
-### 3.5 授权原则
+### 3.5 海量业务资源建模规则
+
+对于订单、工单、文档、文件等高基数业务资源，策略中心不应把资源 ID 列表直接写入 Cedar 策略。例如业务系统有 100 万个订单，某普通顾客只能查看自己的 100 个订单，也可以委托 Agent 代表自己查看这些订单时，不应把 100 个订单 ID 枚举到 `resource` 条件或策略文本中。
+
+推荐使用属性授权模型：
+
+- Cedar policy 表达规则，例如“用户可以查看归属于自己的订单”。
+- 业务系统或数据服务负责按授权主体生成数据库过滤条件，例如 `customer_id = 当前用户ID`。
+- PDP 每次判断只接收本次访问所需的资源属性、主体属性和上下文，不承载全量业务数据。
+- 对订单列表类查询，Cedar 判断“是否允许查看自己的订单集合”，数据库负责筛选实际订单集合。
+- 对单个高敏感资源访问，可在读取候选资源后对具体资源执行二次授权判断。
+
+单个订单访问示例：
+
+```cedar
+permit(
+  principal is User,
+  action == Action::"view",
+  resource is Order
+)
+when {
+  resource.owner == principal
+};
+```
+
+请求中只需携带当前订单的必要实体属性：
+
+```json
+{
+  "principal": "User::\"alice\"",
+  "action": "Action::\"view\"",
+  "resource": "Order::\"order_123\"",
+  "entities": [
+    {
+      "uid": { "type": "Order", "id": "order_123" },
+      "attrs": {
+        "owner": { "__entity": { "type": "User", "id": "alice" } }
+      }
+    }
+  ]
+}
+```
+
+Agent 代表用户查看订单时，仍应使用 `AgentSession` 表达组合主体，而不是把 `User` 和 `Agent` 同时作为 `principal`：
+
+```cedar
+permit(
+  principal is AgentSession,
+  action == Action::"view",
+  resource is Order
+)
+when {
+  resource.owner == principal.user &&
+  principal.agent == Agent::"Agent_A" &&
+  principal.delegatedBy == principal.user
+};
+```
+
+对应语义：
+
+```text
+principal.user  = User::"alice"
+principal.agent = Agent::"Agent_A"
+resource.owner  = User::"alice"
+```
+
+订单列表查询不应让 Cedar 对 100 万订单逐条筛选。推荐将列表建模为集合资源：
+
+```cedar
+permit(
+  principal is User,
+  action == Action::"list",
+  resource == OrderCollection::"orders"
+)
+when {
+  context.owner == principal
+};
+```
+
+业务系统在获得允许结果后，必须把授权结果落实为数据查询约束：
+
+```sql
+where customer_id = :currentUserId
+```
+
+因此，高基数资源场景的边界是：Cedar 负责授权判断，业务系统负责数据查询、数据过滤和分页。Cedar 不作为数据查询引擎使用，也不保存海量资源 ID 清单。
+
+### 3.6 授权原则
 
 策略中心应遵循以下原则：
 
@@ -205,7 +292,7 @@ when {
 9. **用户委托不被替代**：低风险场景的一键授权只简化管理员侧策略，不替代用户允许 Agent 代表自己使用 Skill 或工具的授权。
 10. **租户隔离优先**：任何访问都必须限制在合法租户边界内，跨租户访问默认拒绝。
 
-### 3.6 推荐判定流程
+### 3.7 推荐判定流程
 
 运行时组件发起授权请求后，策略中心按以下逻辑处理：
 

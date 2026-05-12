@@ -18,6 +18,14 @@ frontend  React + Vite + Ant Design 前端
 docs      产品需求、技术方案和开发部署文档
 ```
 
+## 文档导航
+
+- [AI Agent 策略访问控制中心用户需求文档](docs/superpowers/specs/2026-05-11-agent-policy-access-control-prd.md)：产品背景、目标、授权场景、Cedar 建模规则和验收标准。
+- [AI Agent 策略访问控制中心技术方案](docs/superpowers/specs/2026-05-11-agent-policy-java-service-design.md)：Java 后端、前端、策略评估接口和 Cedar 集成设计。
+- [Agent Policy Center 开发与部署指导](docs/superpowers/specs/2026-05-11-agent-policy-development-deployment-guide.md)：本地启动、接口验证、PDP sidecar 和常见问题排查。
+- [Agent Policy Center v1 实施计划](docs/superpowers/plans/2026-05-11-agent-policy-v1-implementation.md)：第一版任务拆分和实施步骤。
+- [背景与目标总览图](docs/assets/agent-policy-background-goals-generated.png)：需求文档第一章配图。
+
 ## 环境要求
 
 - JDK 21
